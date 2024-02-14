@@ -1,6 +1,7 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 const {XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
+const csv = require('csv-parser');
 
 const path = "C:/Users/emil_/System Integration/System_Integration/01._Miscellaneous/01._Home_Assignments/01._Files/";
 
@@ -29,17 +30,36 @@ function ReadFromJSON()
     return result;
 }
 
-function ReadFromTXT()
-{
-    const readData = fs.readFileSync(path + "me.txt");
-    return readData;
+function ReadFromTXT() {
+    const readData = fs.readFileSync(path + "me.txt", 'utf-8');
+    const lines = readData.split('\n');
+    const data = {};
+    lines.forEach(line => {
+        const [key, value] = line.split(' ');
+        if (key && value) {
+            data[key.trim()] = value.trim();
+        }
+    });
+    return JSON.stringify(data);
 }
 
-function ReadFromCSV()
-{
-    const lines = fs.readFileSync(path + 'me.csv', 'utf-8').split('\n');
-    return lines[1].split(',');
+function ReadFromCSV(callback) {
+    const results = [];
+    fs.createReadStream(path + 'me.csv')
+        .pipe(csv())
+        .on('data', (data) => results.push(data))
+        .on('end', () => {
+            const jsonData = results.map(row => {
+                if (row.hobbies && row.hobbies.includes(',')) {
+                    row.hobbies = row.hobbies.split(',').map(hobby => hobby.trim());
+                }
+                return row;
+            });
+            callback(jsonData);
+        });
 }
+
+
 
 
 function print(){
@@ -55,5 +75,13 @@ function print(){
     console.log("CSVPRINT: " + CSVdata);
 }
 
-print();
+//print();
+
+module.exports = {
+    ReadFromXML,
+    ReadFromYaml,
+    ReadFromJSON,
+    ReadFromTXT,
+    ReadFromCSV
+};
 
