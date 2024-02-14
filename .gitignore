@@ -31,3 +31,5 @@ coverage/
 .grunt
 
 # Bower dep
+
+composer.lock
