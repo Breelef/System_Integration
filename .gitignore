@@ -33,3 +33,7 @@ coverage/
 # Bower dep
 
 composer.lock
+
+poetry.lock
+
+package-lock.json
