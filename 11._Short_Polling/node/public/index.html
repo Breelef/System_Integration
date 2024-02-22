@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Short Polling</title>
+</head>
+<body>
+    <h1>Short Polling</h1>
+    <div id="randomNumbers"></div>
+
+<script>
+    const randomNumberDiv = document.getElementById('randomNumbers');
+    const shortPollingDelay = 1000;
+    const poll = async () => {
+        const action = await fetch("/simulateRandomNumbers", {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const response = await fetch("/poll");
+        const result = await response.json();
+        randomNumberDiv.textContent = result.data.join(" ");
+    }
+    setInterval(poll, shortPollingDelay);
+
+</script>
+</body>
+</html>
