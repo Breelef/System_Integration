@@ -1,2 +1,0 @@
-Declined card = 4000 0000 0000 9995
-Successfull card = 4242 4242 4242 4242

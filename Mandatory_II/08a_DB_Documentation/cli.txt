@@ -1,2 +1,0 @@
-Kan også køre
-'npx mro' i terminal

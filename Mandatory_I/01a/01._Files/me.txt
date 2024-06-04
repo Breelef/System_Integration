@@ -1,3 +1,0 @@
-name Emil
-Age 27
-hobbies gaming,skole,sove
