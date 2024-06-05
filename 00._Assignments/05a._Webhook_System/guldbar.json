@@ -1,0 +1,346 @@
+{
+    "schema": [
+        {
+            "table": "bar_plans",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "name",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "from",
+                    "type": "date"
+                },
+                {
+                    "field": "to",
+                    "type": "date"
+                },
+                {
+                    "field": "slug",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                }
+            ]
+        },
+        {
+            "table": "bars",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "name",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "theme",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "date",
+                    "type": "date"
+                },
+                {
+                    "field": "bar_plan_id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "slug",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "timeslot_from",
+                    "type": "time"
+                },
+                {
+                    "field": "timeslot_to",
+                    "type": "time"
+                }
+            ]
+        },
+        {
+            "table": "failed_jobs",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "uuid",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "connection",
+                    "type": "text"
+                },
+                {
+                    "field": "queue",
+                    "type": "text"
+                },
+                {
+                    "field": "payload",
+                    "type": "longtext"
+                },
+                {
+                    "field": "exception",
+                    "type": "longtext"
+                },
+                {
+                    "field": "failed_at",
+                    "type": "timestamp"
+                }
+            ]
+        },
+        {
+            "table": "migrations",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "int(10) unsigned"
+                },
+                {
+                    "field": "migration",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "batch",
+                    "type": "int(11)"
+                }
+            ]
+        },
+        {
+            "table": "password_reset_tokens",
+            "columns": [
+                {
+                    "field": "email",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "token",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                }
+            ]
+        },
+        {
+            "table": "personal_access_tokens",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "tokenable_type",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "tokenable_id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "name",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "token",
+                    "type": "varchar(64)"
+                },
+                {
+                    "field": "abilities",
+                    "type": "text"
+                },
+                {
+                    "field": "last_used_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "expires_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                }
+            ]
+        },
+        {
+            "table": "role_user",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "user_id",
+                    "type": "int(11)"
+                },
+                {
+                    "field": "role_id",
+                    "type": "int(11)"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                }
+            ]
+        },
+        {
+            "table": "roles",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "name",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "access_level",
+                    "type": "bigint(20)"
+                }
+            ]
+        },
+        {
+            "table": "shifts",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "type",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "timeslot_from",
+                    "type": "time"
+                },
+                {
+                    "field": "timeslot_to",
+                    "type": "time"
+                },
+                {
+                    "field": "user_id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "bar_id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "location",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "checklist",
+                    "type": "longtext"
+                }
+            ]
+        },
+        {
+            "table": "users",
+            "columns": [
+                {
+                    "field": "id",
+                    "type": "bigint(20) unsigned"
+                },
+                {
+                    "field": "name",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "email",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "password",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "image_path",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "isActive",
+                    "type": "tinyint(1)"
+                },
+                {
+                    "field": "subject",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "phone",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "slug",
+                    "type": "varchar(255)"
+                },
+                {
+                    "field": "remember_token",
+                    "type": "varchar(100)"
+                },
+                {
+                    "field": "created_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "updated_at",
+                    "type": "timestamp"
+                },
+                {
+                    "field": "approved_at",
+                    "type": "timestamp"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queue example</title>
+</head>
+<body>
+    <h1>Queue System</h1>
+    <button id="joinQueueBtn">Join Queue</button>
+    <div id="queueStatus"></div>
+
+    <script>
+        document.getElementById("joinQueueBtn").addEventListener('click', () => {
+            fetch('/join')
+                .then(response => response.json())
+                .then(data => {
+                    const eventSource = new EventSource(`/queue?initialPosition=${data.initialPosition}`);
+                    eventSource.onmessage = function (event) {
+                        const data = JSON.parse(event.data);
+                        if (data.message) {
+                            document.getElementById('queueStatus').innerText = data.message;
+                            eventSource.close();
+                        } else {
+                            document.getElementById('queueStatus').innerText = `Your current position in the queue: ${data.position}`;
+                        }
+                    };
+                    eventSource.onerror = function() {
+                        document.getElementById('queueStatus').innerText = 'Connection error, please try again later.';
+                        eventSource.close();
+                    };
+                });
+        });
+    </script>
+</body>
+</html>

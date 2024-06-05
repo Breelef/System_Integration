@@ -1,11 +1,11 @@
-const fs = require("fs");
-const yaml = require("js-yaml");
-const {XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
-const csv = require('csv-parser');
+import fs from 'fs';
+import yaml from 'js-yaml';
+import { XMLParser } from 'fast-xml-parser';
+import { parse } from 'csv-parse/sync';
 
-const path = "C:/Users/emil_/System Integration/System_Integration/01._Miscellaneous/01._Home_Assignments/01._Files/";
+const path = "01._Files/";
 
-function ReadFromXML() {
+export function ReadFromXML() {
     const xmlFile = fs.readFileSync(path + 'me.xml', 'utf8');
     const parser = new XMLParser();
     const json = parser.parse(xmlFile, { ignoreAttributes: false, attributeNamePreFix : ""});
@@ -13,23 +13,21 @@ function ReadFromXML() {
 }
 
 
-function ReadFromYaml()
+export function ReadFromYaml()
 {
     const data = fs.readFileSync(path + 'me.yaml', 'utf8');
     const result = yaml.load(data);
-    const json = JSON.stringify(result);
-    return json;
+    return JSON.stringify(result);
 }
 
-function ReadFromJSON()
+export function ReadFromJSON()
 {
     const data = fs.readFileSync(path + 'me.json', 'utf-8');
     const parse = JSON.parse(data);
-    const result = JSON.stringify(parse);
-    return result;
+    return JSON.stringify(parse);
 }
 
-function ReadFromTXT() {
+export function ReadFromTXT() {
     const readData = fs.readFileSync(path + "me.txt", 'utf-8');
     const lines = readData.split('\n');
     const data = {};
@@ -42,20 +40,13 @@ function ReadFromTXT() {
     return JSON.stringify(data);
 }
 
-function ReadFromCSV(callback) {
-    const results = [];
-    fs.createReadStream(path + 'me.csv')
-        .pipe(csv())
-        .on('data', (data) => results.push(data))
-        .on('end', () => {
-            const jsonData = results.map(row => {
-                if (row.hobbies && row.hobbies.includes(',')) {
-                    row.hobbies = row.hobbies.split(',').map(hobby => hobby.trim());
-                }
-                return row;
-            });
-            callback(jsonData);
-        });
+export function ReadFromCSV() {
+    const csvData = fs.readFileSync(path + 'me.csv', 'utf-8');
+    const records = parse(csvData, {
+        columns: true,
+        skip_empty_lines: true
+    });
+    return JSON.stringify(records);
 }
 
 
@@ -76,11 +67,4 @@ function print(){
 
 //print();
 
-module.exports = {
-    ReadFromXML,
-    ReadFromYaml,
-    ReadFromJSON,
-    ReadFromTXT,
-    ReadFromCSV
-};
 

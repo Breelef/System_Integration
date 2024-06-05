@@ -1,28 +1,23 @@
-import express from "express";
-const app = express();
-app.use(express.static("public"));
+import { WebSocketServer, WebSocket } from 'ws';
 
-import http from "http";
-const server = http.createServer(app);
+const PORT = process.env.PORT || 8080;
+const server = new WebSocketServer({ port: PORT });
 
-import { Server } from "socket.io";
-const io = new Server(server);
+server.on("connection", (ws) => {
+    console.log("New connection:", server.clients.size);
 
-app.use(express.static('public'));
-
-io.on('connection', (socket) => {
-    console.log("User connected");
-
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    ws.on("message", (message) => {
+        console.log(`Message received from client: ${message}`);
+        server.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(message);
+            }
+        });
     });
 
-    socket.on('disconnect', () => {
-        console.log("User disconnected");
-    })
+    ws.on("close", () => {
+        console.log("Client disconnected:", server.clients.size);
+    });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+console.log(`WebSocket server is running on ws://localhost:${PORT}`);

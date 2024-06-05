@@ -2,34 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Websocket Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat Board</title>
 </head>
 <body>
-    <ul id="messages">
-        <form id="form" action="">
-            <input id="input" autocomplete="off"><button>Send</button>
-        </form>
-    </ul>
-    <script src="/socket.io/socket.io.js"></script>
+    <h3>Chat Board</h3>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+
     <script>
-        var socket = io();
-        var form = document.getElementById('form');
-        var input = document.getElementById('input');
+        const ws = new WebSocket("ws://127.0.0.1:8080");
+        ws.binaryType = "arraybuffer";
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (input.value) {
-                socket.emit('chat message', input.value);
-                input.value = '';
+        ws.onopen = () => {
+            console.log("Connected to the server");
+        };
+
+        ws.onmessage = (event) => {
+            const messagesDiv = document.getElementById("messages");
+            const messageElement = document.createElement("p");
+
+            if (event.data instanceof ArrayBuffer) {
+                const message = new TextDecoder("utf-8").decode(event.data);
+                messageElement.textContent = message;
+            } else {
+                messageElement.textContent = event.data;
             }
-        });
 
-        socket.on('chat message', function(msg) {
-            var item = document.createElement('li');
-            item.textContent = msg;
-            document.getElementById('messages').appendChild(item);
-            window.scrollTo(0, document.body.scrollHeight);
-        });
+            messagesDiv.appendChild(messageElement);
+        };
+
+        ws.onerror = (error) => {
+            console.log("Something went wrong", error);
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const message = messageInput.value;
+            ws.send(message);
+            messageInput.value = "";
+        }
     </script>
 </body>
 </html>

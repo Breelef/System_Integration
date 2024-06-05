@@ -1,30 +1,30 @@
-const express = require('express');
-const filereader = require('../01._Miscellaneous/01._Home_Assignments/filereader.js');
+import express from "express";
+import {ReadFromXML, ReadFromYaml, ReadFromJSON, ReadFromTXT, ReadFromCSV} from './filereader.js';
 const app = express();
 
 
 app.get('/getXML', (req, res) => {
-    const xmldata = filereader.ReadFromXML();
+    const xmldata = ReadFromXML();
     res.send(xmldata);
 });
 
 app.get('/getYAML', (req, res) => {
-    const yamldata = filereader.ReadFromYaml();
+    const yamldata = ReadFromYaml();
     res.send(yamldata);
 });
 
 app.get('/getJSON', (req, res) => {
-    const jsondata = filereader.ReadFromJSON();
+    const jsondata = ReadFromJSON();
     res.send(jsondata);
 });
 
 app.get('/getTXT', (req, res) => {
-    const txtdata = filereader.ReadFromTXT();
+    const txtdata = ReadFromTXT();
     res.send(txtdata);
 });
 
 app.get('/getCSV', (req, res) => {
-    filereader.ReadFromCSV(csvData => {
+    ReadFromCSV(csvData => {
         res.send(csvData);
     });
 });

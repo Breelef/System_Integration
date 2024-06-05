@@ -1,5 +1,5 @@
 {
-  "name": "06a",
+  "name": "node",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ws": "^8.17.0"
+    "express": "^4.19.2"
   }
 }
