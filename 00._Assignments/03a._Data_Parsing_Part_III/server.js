@@ -24,9 +24,8 @@ app.get('/getTXT', (req, res) => {
 });
 
 app.get('/getCSV', (req, res) => {
-    ReadFromCSV(csvData => {
-        res.send(csvData);
-    });
+    const csvData = ReadFromCSV();
+    res.send(csvData);
 });
 
 const PORT = process.env.PORT || 8080;
