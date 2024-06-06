@@ -31,7 +31,6 @@ function mapMySQLTypeToPostgresType(mysqlType) {
         'float': 'REAL',
         'double': 'DOUBLE PRECISION',
     };
-    //Regex to match the type in postgres
     const [type, length] = mysqlType.match(/(\w+)(\(\d+\))?/).slice(1, 3);
     const mappedType = typeMapping[type.toLowerCase()];
     return typeof mappedType === 'function' ? mappedType(length.slice(1, -1)) : mappedType;

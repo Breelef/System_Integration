@@ -1,0 +1,13 @@
+Register/unregister webhook
+{
+    "webhook_url":"127.0.0.1/webhooks"
+}
+
+Trigger event:
+{
+    "event_type": "message",
+    "data": {
+        "message": "Hello World"
+    }
+}
+

@@ -10,6 +10,7 @@ class EventType(str, Enum):
     payment_processed = "payment processed"
     invoice_processing = "invoice processing"
     invoice_completed = "invoice completed"
+    message = "message"
 
 class Webhook(BaseModel):
     webhook_url: str
